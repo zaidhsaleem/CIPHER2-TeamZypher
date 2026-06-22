@@ -1,0 +1,82 @@
+[
+  {
+    "id": "ST001",
+    "name": "Alice",
+    "skills": {"frontend": 5, "backend": 2, "data_qa": 3, "pm_design": 4},
+    "preferences": ["Project_Alpha", "Project_Beta", "Project_Gamma"],
+    "availability": 15,
+    "blacklist": ["ST006"]
+  },
+  {
+    "id": "ST002",
+    "name": "Bob",
+    "skills": {"frontend": 1, "backend": 5, "data_qa": 4, "pm_design": 2},
+    "preferences": ["Project_Beta", "Project_Alpha", "Project_Gamma"],
+    "availability": 20,
+    "blacklist": []
+  },
+  {
+    "id": "ST003",
+    "name": "Charlie",
+    "skills": {"frontend": 2, "backend": 3, "data_qa": 5, "pm_design": 1},
+    "preferences": ["Project_Alpha", "Project_Gamma", "Project_Beta"],
+    "availability": 12,
+    "blacklist": []
+  },
+  {
+    "id": "ST004",
+    "name": "David",
+    "skills": {"frontend": 3, "backend": 2, "data_qa": 2, "pm_design": 5},
+    "preferences": ["Project_Gamma", "Project_Beta", "Project_Alpha"],
+    "availability": 18,
+    "blacklist": []
+  },
+  {
+    "id": "ST005",
+    "name": "Eva",
+    "skills": {"frontend": 4, "backend": 4, "data_qa": 1, "pm_design": 3},
+    "preferences": ["Project_Alpha", "Project_Beta", "Project_Gamma"],
+    "availability": 15,
+    "blacklist": []
+  },
+  {
+    "id": "ST006",
+    "name": "Frank",
+    "skills": {"frontend": 5, "backend": 1, "data_qa": 2, "pm_design": 3},
+    "preferences": ["Project_Beta", "Project_Gamma", "Project_Alpha"],
+    "availability": 10,
+    "blacklist": ["ST001"]
+  },
+  {
+    "id": "ST007",
+    "name": "Grace",
+    "skills": {"frontend": 2, "backend": 5, "data_qa": 3, "pm_design": 2},
+    "preferences": ["Project_Gamma", "Project_Alpha", "Project_Beta"],
+    "availability": 16,
+    "blacklist": []
+  },
+  {
+    "id": "ST008",
+    "name": "Hank",
+    "skills": {"frontend": 1, "backend": 2, "data_qa": 5, "pm_design": 4},
+    "preferences": ["Project_Alpha", "Project_Gamma", "Project_Beta"],
+    "availability": 14,
+    "blacklist": []
+  },
+  {
+    "id": "ST009",
+    "name": "Ivy",
+    "skills": {"frontend": 3, "backend": 4, "data_qa": 2, "pm_design": 5},
+    "preferences": ["Project_Beta", "Project_Alpha", "Project_Gamma"],
+    "availability": 19,
+    "blacklist": []
+  },
+  {
+    "id": "ST010",
+    "name": "Jack",
+    "skills": {"frontend": 4, "backend": 3, "data_qa": 4, "pm_design": 1},
+    "preferences": ["Project_Gamma", "Project_Beta", "Project_Alpha"],
+    "availability": 11,
+    "blacklist": []
+  }
+]
