@@ -1,4 +1,6 @@
 import json
+import random
+import copy
 import numpy as np
 from scipy.optimize import linear_sum_assignment
 
@@ -73,6 +75,61 @@ def calculate_project_preference_score(team, project):
             
     # Return average preference score for the team
     return total_score / len(team)
+def calculate_variance_score(teams):
+    """Calculates a global score based on workload and skill variance (closer to 0 is better)."""
+    t1_skill = sum(calculate_total_skill(s) for s in teams[0])
+    t2_skill = sum(calculate_total_skill(s) for s in teams[1])
+    
+    t1_hours = sum(s["availability"] for s in teams[0])
+    t2_hours = sum(s["availability"] for s in teams[1])
+    
+    skill_diff = abs(t1_skill - t2_skill)
+    hours_diff = abs(t1_hours - t2_hours)
+    
+    return -(skill_diff * 2 + hours_diff)
+
+def stochastic_swap_loop(teams):
+    """O(K) Stochastic Swap Optimization to balance teams without breaking constraints."""
+    print("\n🔄 Running Phase 2: Stochastic Swap Optimization...")
+    
+    current_score = calculate_variance_score(teams)
+    no_improve = 0
+    k_limit = 5000
+    iterations = 0
+
+    while no_improve < 500 and iterations < k_limit:
+        iterations += 1
+        
+        t1_idx = random.randint(0, len(teams[0]) - 1)
+        t2_idx = random.randint(0, len(teams[1]) - 1)
+        
+        s1 = teams[0][t1_idx]
+        s2 = teams[1][t2_idx]
+        
+        test_t1 = copy.deepcopy(teams[0])
+        test_t2 = copy.deepcopy(teams[1])
+        
+        test_t1[t1_idx] = s2
+        test_t2[t2_idx] = s1
+        
+        t1_conflicts = check_blacklists(test_t1)
+        t2_conflicts = check_blacklists(test_t2)
+        
+        if not t1_conflicts and not t2_conflicts:
+            new_score = calculate_variance_score([test_t1, test_t2])
+            
+            if new_score > current_score:
+                teams[0] = test_t1
+                teams[1] = test_t2
+                current_score = new_score
+                no_improve = 0
+            else:
+                no_improve += 1
+        else:
+            no_improve += 1
+
+    print(f"✅ Optimization settled after {iterations} iterations.")
+    return teams
 
 def assign_projects_hungarian(teams, projects):
     """Uses scipy's linear_sum_assignment to mathematically optimize 1:1 project allocation."""
@@ -138,11 +195,14 @@ if __name__ == "__main__":
     # 1. Ingest Data
     students = load_students("students.json")
     
-    # 2. Greedy Seed (Balancing skill & availability)
+    # 2. Greedy Seed 
     teams = greedy_seed_teams(students)
     
-    # 3. Hungarian Matching (Project allocation)
+    # 3. Phase 2: Stochastic Swap Loop
+    teams = stochastic_swap_loop(teams)
+    
+    # 4. Hungarian Matching 
     project_assignments = assign_projects_hungarian(teams, PROJECTS)
     
-    # 4. Output Result
+    # 5. Output Result
     print_final_report(teams, project_assignments)
